@@ -2,6 +2,13 @@ const express = require('express');
 const app = express();
 const port = 5000;
 const bodyParser = require('body-parser');
+const dbConfig = require('./config/database');
+
+
+/* DB Connection 과정 */
+const connection = dbConfig.init();
+dbConfig.connect(connection);
+
 
 /* 미들웨어에 bodyParser 추가 */
 app.use(bodyParser.urlencoded({ extended: true }));
