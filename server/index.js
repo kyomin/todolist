@@ -3,11 +3,13 @@ const app = express();
 const port = 5000;
 const bodyParser = require('body-parser');
 const dbConfig = require('./config/database');
+const db = require('./models');
 
 
 /* DB Connection 과정 */
 const connection = dbConfig.init();
 dbConfig.connect(connection);
+db.sequelize.sync();
 
 
 /* 미들웨어에 bodyParser 추가 */
