@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
             unique: true
         },
         password: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(128),
             allowNull: false
         },
         token: {
