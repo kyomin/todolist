@@ -45,8 +45,19 @@ const authUser = (req, res) => {
    res.status(200).json({auth: true, user: req.user});
 }
 
+const logoutUser = (req, res) => {
+    userService.deleteToken(req.user.id)
+    .then((success) => {
+        res.status(200).json(success);
+    })
+    .catch((fail) => {
+        res.json(fail);
+    });
+}
+
 module.exports = {
     registerUser,
     loginUser,
-    authUser
+    authUser,
+    logoutUser
 };

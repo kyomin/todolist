@@ -20,7 +20,7 @@ const encryptPassword = (password) => {
                 resolve(hash);
             });
         });
-    })
+    });
 }
 
 const registerUser = (req) => {
@@ -46,7 +46,6 @@ const findOneByEmail = (email) => {
     return new Promise((resolve, reject) => {
         User.findOne({ where: {email: email} })
         .then((user) => {
-            console.log('user with email : ', user);
             if(!user) {
                 reject({
                     loginSuccess: false,
@@ -92,7 +91,7 @@ const confirmPassword = (email, plainPassword) => {
                 })
             });
         });
-    })
+    });
 }
 
 const createToken = (email) => {
@@ -114,15 +113,13 @@ const createToken = (email) => {
                 message: "토큰 생성에 실패했습니다."
             });
         });
-    })
+    });
 }
 
 const findOneByToken = (token) => {
     return new Promise((resolve, reject) => {
         User.findOne({ where: {token: token} })
         .then((user) => {
-            console.log('token : ', token);
-            console.log('user with token : ', user);
             if(!user) {
                 reject("인증에 실패했습니다.");
             }
@@ -134,9 +131,22 @@ const findOneByToken = (token) => {
     });
 }
 
+const deleteToken = (id) => {
+    return new Promise((resolve, reject) => {
+        User.update({ token: "" }, { where: {id: id} })
+        .then(() => {
+            resolve({ logoutSuccess: true });
+        })
+        .catch(() => {
+            reject({ logoutSuccess: false });
+        });
+    });
+}
+
 module.exports = {
     registerUser,
     findOneByEmail,
     confirmPassword,
-    findOneByToken
+    findOneByToken,
+    deleteToken
 };
