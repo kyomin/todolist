@@ -10,7 +10,6 @@ const { User } = require('../models');
 
 const encryptPassword = (password) => {
     return new Promise((resolve, reject) => {
-        console.log('input password : ', password);
         bcrypt.genSalt(saltRounds, function(err, salt) {
             if(err) reject(err);
     
@@ -143,10 +142,23 @@ const deleteToken = (id) => {
     });
 }
 
+const deleteUser = (id) => {
+    return new Promise((resolve, reject) => {
+        User.destroy({ where: {id: id} })
+        .then(() => {
+            resolve({ deleteSuccess: true });
+        })
+        .catch(() => {
+            reject({ deleteSuccess: false });
+        });
+    });
+}
+
 module.exports = {
     registerUser,
     findOneByEmail,
     confirmPassword,
     findOneByToken,
-    deleteToken
+    deleteToken,
+    deleteUser
 };

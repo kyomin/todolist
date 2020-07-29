@@ -55,9 +55,20 @@ const logoutUser = (req, res) => {
     });
 }
 
+const deleteUser = (req, res) => {
+    userService.deleteUser(req.user.id)
+    .then((result) => {
+        res.status(200).json(result);
+    })
+    .catch((err) => {
+        res.status(204).json(err);
+    });
+}
+
 module.exports = {
     registerUser,
     loginUser,
     authUser,
-    logoutUser
+    logoutUser,
+    deleteUser
 };
