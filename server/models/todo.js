@@ -1,5 +1,13 @@
+//=======================================
+//             Todo Model
+//=======================================
+
 module.exports = (sequelize, Sequelize) => {
     return sequelize.define('todo', {
+        email: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
         title: {
             type: Sequelize.STRING,
             allowNull: false
@@ -9,7 +17,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         flag: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            allowNull: false
         }
     }, { timestamps: true });
 }

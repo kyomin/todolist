@@ -1,8 +1,8 @@
 const userService = require('../services/user');
 
-//=================================
-//             User
-//=================================
+//=======================================
+//             User Controller
+//=======================================
 
 const registerUser = (req, res) => {
     userService.registerUser(req)
@@ -27,14 +27,26 @@ const loginUser = (req, res) => {
         // 3. 로그인 과정을 마쳤다면 최종적으로 토큰을 이용해 쿠키를 생성한다.
         res.cookie("x_auth", success.token)
         .status(200)
-        .json(success);
+        .json({
+            loginSuccess: true,
+            userId: success.id
+        });
     })
     .catch((fail) => {
         res.json(fail);
     });
 }
 
+const authUser = (req, res) => {
+    /*
+        이 곳으로 진입했다면 auth 미들웨어를 통과해 왔다는 얘기이다.
+        즉, 토큰을 이용한 인증처리가 완료된 것이다.
+    */
+   res.status(200).json({auth: true, user: req.user});
+}
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    authUser
 };

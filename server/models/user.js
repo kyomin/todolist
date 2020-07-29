@@ -1,3 +1,7 @@
+//=======================================
+//             User Model
+//=======================================
+
 module.exports = (sequelize, Sequelize) => {
     return sequelize.define('user', {
         name: {

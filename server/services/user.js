@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 
 const { User } = require('../models');
 
-//=================================
-//             User
-//=================================
+//=======================================
+//             User Service
+//=======================================
 
 const encryptPassword = (password) => {
     return new Promise((resolve, reject) => {
@@ -46,6 +46,7 @@ const findOneByEmail = (email) => {
     return new Promise((resolve, reject) => {
         User.findOne({ where: {email: email} })
         .then((user) => {
+            console.log('user with email : ', user);
             if(!user) {
                 reject({
                     loginSuccess: false,
@@ -101,25 +102,41 @@ const createToken = (email) => {
 
         // DB에 토큰 값을 넣어준다.
         User.update({ token: token }, { where: {email: email} })
-        .then((result) => {
+        .then((id) => {
             resolve({
-                loginSuccess: true,
-                message: `${result}번 회원 로그인 성공!`,
+                id: id[0],
                 token
             });
         })
-        .catch((err) => {
+        .catch(() => {
             reject({
                 loginSuccess: false,
-                message: "토큰 생성에 실패했습니다.",
-                err
+                message: "토큰 생성에 실패했습니다."
             });
         });
     })
 }
 
+const findOneByToken = (token) => {
+    return new Promise((resolve, reject) => {
+        User.findOne({ where: {token: token} })
+        .then((user) => {
+            console.log('token : ', token);
+            console.log('user with token : ', user);
+            if(!user) {
+                reject("인증에 실패했습니다.");
+            }
+            resolve(user.dataValues);
+        })
+        .catch(() => {
+            reject("인증에 실패했습니다.");
+        });
+    });
+}
+
 module.exports = {
     registerUser,
     findOneByEmail,
-    confirmPassword
+    confirmPassword,
+    findOneByToken
 };

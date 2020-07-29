@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.use('/api/users', require('./routes/user'));
+app.use('/api/user', require('./routes/user'));
 
 app.listen(port, () => {
     console.log(`Server in running on port ${port}`);
