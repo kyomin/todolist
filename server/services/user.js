@@ -142,6 +142,32 @@ const deleteToken = (id) => {
     });
 }
 
+const updateUser = (id, password) => {
+    return new Promise((resolve, reject) => {
+        console.log('id in update : ', id);
+        console.log('password in update : ', password);
+        encryptPassword(password)
+        .then((encryptedPassword) => {
+            User.update({ password: encryptedPassword }, { where: {id: id} })
+            .then(() => {
+                resolve({ updateSuccess: true });
+            })
+            .catch(() => {
+                reject({
+                    updateSuccess: false,
+                    message: "비밀번호 업데이트에 실패했습니다."
+                });
+            });
+        })
+        .catch(() => {
+            return reject({
+                updateSuccess: false,
+                message: "비밀번호 업데이트에 실패했습니다."
+            });
+        });
+    });
+}
+
 const deleteUser = (id) => {
     return new Promise((resolve, reject) => {
         User.destroy({ where: {id: id} })
@@ -160,5 +186,6 @@ module.exports = {
     confirmPassword,
     findOneByToken,
     deleteToken,
+    updateUser,
     deleteUser
 };

@@ -4,8 +4,8 @@
 
 module.exports = (sequelize, Sequelize) => {
     return sequelize.define('todo', {
-        email: {
-            type: Sequelize.STRING,
+        userId: {
+            type: Sequelize.INTEGER,
             allowNull: false
         },
         title: {
@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.TEXT,
             allowNull: false
         },
-        flag: {
+        flag: {     // 0 : 할 일(todo), 1 : 진행 중인 일(doing), 2 : 완료된 일(done)
             type: Sequelize.INTEGER,
             allowNull: false
         }
