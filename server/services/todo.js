@@ -9,15 +9,9 @@ const getTodos = (userId) => {
     return new Promise((resolve, reject) => {
         Todo.findAll({ where: {userId: userId}, order: [ ['flag', 'ASC'] ] })
         .then((todos) => {
-            if(!todos.length) {
-                reject({
-                    getTodosSuccess: false,
-                    message: "작성한 TODO 리스트가 없습니다"
-                 });
-            }
             resolve(makeTypeList(todos));
         })
-        .catch(() => {
+        .catch((err) => {
             reject({
                 getTodosSuccess: false,
                 message: "TODO 리스트 불러오기에 실패했습니다."
@@ -43,10 +37,16 @@ const makeTypeList = (totalList) => {
     let typeList = [];
     let len = totalList.length;
 
-    /* 
-        첫 번째 타입의 첫 원소에 대해 처리한다. 
-        todo 리스트가 존재할 때에만 이 함수를 호출하므로 길이 1 이상을 보장하기 때문이다.
-    */
+    // 불러온 todo 리스트의 길이가 0일 경우의 예외처리 !!
+    if(!len) {
+        for(let idx=0; idx<=maxFlag; idx++) {
+            resultMap[idx] = [];
+        }
+
+        return resultMap;
+    }
+
+    // 첫 번째 타입의 첫 원소에 대해 처리한다. 
     let currentType = totalList[0].flag;
     typeList.push(totalList[0]);
 

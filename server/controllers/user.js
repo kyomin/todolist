@@ -42,7 +42,12 @@ const authUser = (req, res) => {
         이 곳으로 진입했다면 auth 미들웨어를 통과해 왔다는 얘기이다.
         즉, 토큰을 이용한 인증처리가 완료된 것이다.
     */
-   res.status(200).json({auth: true, user: req.user});
+   res.status(200).json({
+       isAuth: true, 
+       id: req.user.id,
+       email: req.user.email,
+       name: req.user.name
+    });
 }
 
 const logoutUser = (req, res) => {
