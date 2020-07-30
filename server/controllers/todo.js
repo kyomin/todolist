@@ -34,8 +34,19 @@ const updateTodo = (req, res) => {
     });
 }
 
+const deleteTodo = (req, res) => {
+    todoService.deleteTodo(req.params.id)
+    .then((result) => {
+        res.status(200).json(result);
+    })
+    .catch((fail) => {
+        res.json(fail);
+    });
+}
+
 module.exports = {
     getTodos,
     makeTodo,
-    updateTodo
+    updateTodo,
+    deleteTodo
 };

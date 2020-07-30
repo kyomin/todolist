@@ -123,8 +123,21 @@ const getNextFlag = (id) => {
     });
 }
 
+const deleteTodo = (id) => {
+    return new Promise((resolve, reject) => {
+        Todo.destroy({ where: {id: id} })
+        .then((id) => {
+            resolve({ deleteSuccess: true });
+        })
+        .catch(() => {
+            reject({ deleteSuccess: false });
+        });
+    });
+}
+
 module.exports = {
     getTodos,
     makeTodo,
-    updateTodo
+    updateTodo,
+    deleteTodo
 };
