@@ -144,8 +144,6 @@ const deleteToken = (id) => {
 
 const updateUser = (id, password) => {
     return new Promise((resolve, reject) => {
-        console.log('id in update : ', id);
-        console.log('password in update : ', password);
         encryptPassword(password)
         .then((encryptedPassword) => {
             User.update({ password: encryptedPassword }, { where: {id: id} })

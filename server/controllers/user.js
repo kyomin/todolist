@@ -60,8 +60,8 @@ const updateUser = (req, res) => {
     .then((result) => {
         res.status(200).json(result);
     })
-    .catch((err) => {
-        res.status(204).json(err);
+    .catch((fail) => {
+        res.json(fail);
     });
 }
 
@@ -70,8 +70,8 @@ const deleteUser = (req, res) => {
     .then((result) => {
         res.status(200).json(result);
     })
-    .catch((err) => {
-        res.status(204).json(err);
+    .catch((fail) => {
+        res.json(fail);
     });
 }
 

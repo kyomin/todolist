@@ -24,7 +24,18 @@ const makeTodo = (req, res) => {
     });
 }
 
+const updateTodo = (req, res) => {
+    todoService.updateTodo(req.params.id)
+    .then((result) => {
+        res.status(200).json(result);
+    })
+    .catch((fail) => {
+        res.json(fail);
+    });
+}
+
 module.exports = {
     getTodos,
-    makeTodo
+    makeTodo,
+    updateTodo
 };

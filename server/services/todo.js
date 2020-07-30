@@ -1,4 +1,5 @@
 const { Todo } = require('../models');
+const maxFlag = 2;
 
 //=======================================
 //             Todo Service
@@ -71,7 +72,59 @@ const makeTypeList = (totalList) => {
     return resultMap;
 }
 
+const updateTodo = (id) => {
+    return new Promise((resolve, reject) => {
+        getNextFlag(id)
+        .then((nextFlag) => {
+            Todo.update({ flag: nextFlag }, { where: {id: id} })
+            .then(() => {
+                resolve({ updateSuccess: true });
+            })
+            .catch(() => {
+                reject({
+                    updateSuccess: false,
+                    message: "비밀번호 업데이트에 실패했습니다."
+                });
+            });
+        })
+        .catch((err) => {
+            reject(err);
+        })
+    });
+}
+
+const getNextFlag = (id) => {
+    return new Promise((resolve, reject) => {
+        Todo.findOne({ where: {id: id} })
+        .then((todo) => {
+            if(!todo) {
+                reject({
+                    updateSuccess: false,
+                    message: "DB에서 해당 할 일을 찾지 못했습니다."
+                });
+            }
+
+            // 다음 단계로 넘어갈 수 없는 경우의 예외처리 => 최대 flag 값을 변수로 관리할 수 있는 방법 생각해보기
+            if(todo.dataValues.flag === maxFlag) {
+                reject({
+                    updateSuccess: false,
+                    message: "다음 단계로 넘어갈 수 없습니다."
+                });
+            } else {
+                resolve(todo.dataValues.flag+1);
+            }
+        })
+        .catch((err) => {
+            reject({
+                updateSuccess: false,
+                message: err
+            });
+        });
+    });
+}
+
 module.exports = {
     getTodos,
-    makeTodo
+    makeTodo,
+    updateTodo
 };
