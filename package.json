@@ -19,10 +19,6 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
-    "react-redux": "^7.2.1",
-    "redux": "^4.0.5",
-    "redux-promise": "^0.6.0",
-    "redux-thunk": "^2.3.0",
     "sequelize": "^6.3.3"
   }
 }

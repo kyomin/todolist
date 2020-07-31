@@ -50,10 +50,10 @@ function LoginPage(props) {
                 onSubmit={onSubmitHandler}
             >
                 <label>Email</label>
-                <input type='email' value={email} onChange={onEmailHandler} />
+                <input type='email' value={email} onChange={onEmailHandler} required />
 
                 <label>Password</label>
-                <input type='password' value={password} onChange={onPasswordHandler} />
+                <input type='password' value={password} onChange={onPasswordHandler} required />
 
                 <br />
                 <button>
