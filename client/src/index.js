@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
+/* For UI */
+import 'antd/dist/antd.css';
+
 /* For Redux */
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';

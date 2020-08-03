@@ -120,12 +120,12 @@ const findOneByToken = (token) => {
         User.findOne({ where: {token: token} })
         .then((user) => {
             if(!user) {
-                reject("인증에 실패했습니다.");
+                reject("로그인 하십시오!");
             }
             resolve(user.dataValues);
         })
         .catch(() => {
-            reject("인증에 실패했습니다.");
+            reject("DB에 문제가 생겼습니다!");
         });
     });
 }

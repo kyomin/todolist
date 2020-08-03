@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_action';
+import { Form, Input, Typography, Button } from 'antd';
+
+const { Title } = Typography;
 
 function RegisterPage(props) {
     const dispatch = useDispatch();
@@ -61,41 +65,77 @@ function RegisterPage(props) {
             <div style={{
                 width: '20%'
             }}>
+                <Title level={2} style={{color: '#40a9ff'}}>Register</Title>
                 <form 
                     style={{
                         display: 'flex', flexDirection: 'column', marginBottom: '1%'
                     }}
                     onSubmit={onSubmitHandler}
                 >
-                    <label>Email</label>
-                    <input type='email' value={email} onChange={onEmailHandler} required />
+                    <Form.Item>
+                        <label>Email</label>
+                        <Input
+                            id="email"
+                            placeholder="이메일을 입력하십시오!"
+                            type="email"
+                            value={email}
+                            onChange={onEmailHandler}
+                            required
+                        />
+                    </Form.Item>
 
-                    <label>Name</label>
-                    <input type='text' value={name} onChange={onNameHandler} required />
+                    <Form.Item>
+                        <label>Name</label>
+                        <Input
+                            id="name"
+                            placeholder="이름을 입력하십시오!"
+                            type="text"
+                            value={name}
+                            onChange={onNameHandler}
+                            required
+                        />
+                    </Form.Item>
 
-                    <label>Password</label>
-                    <input type='password' value={password} onChange={onPasswordHandler} required />
+                    <Form.Item>
+                        <label>Password</label>
+                        <Input
+                            id="password"
+                            placeholder="비밀번호를 입력하십시오!"
+                            type="password"
+                            value={password}
+                            onChange={onPasswordHandler}
+                            required
+                        />
+                    </Form.Item>
 
-                    <label>Confirm Password</label>
-                    <input type='password' value={confirmPassword} onChange={onConfirmPasswordHandler} required />
-
+                    <Form.Item>
+                        <label>Confirm Password</label>
+                        <Input
+                            id="confirm_password"
+                            placeholder="비밀번호를 확인하십시오!"
+                            type="password"
+                            value={confirmPassword}
+                            onChange={onConfirmPasswordHandler}
+                            required
+                        />
+                    </Form.Item>
                     <br />
 
-                    <button>
+                    <Button type="primary" htmlType="submit">
                         회원가입
-                    </button>
+                    </Button>
                 </form>
                 
                 <a style={{textDecoration: 'none'}} href = '/login'>
-                    <button style={{
+                    <Button style={{
                         display: 'block', width: '100%', textAlign: 'center'
                     }}>
                         취소
-                    </button>
+                    </Button>
                 </a>
             </div>
         </div>
     )
 }
 
-export default RegisterPage;
+export default withRouter(RegisterPage);

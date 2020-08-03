@@ -9,7 +9,10 @@ const getTodos = (userId) => {
     return new Promise((resolve, reject) => {
         Todo.findAll({ where: {userId: userId}, order: [ ['flag', 'ASC'] ] })
         .then((todos) => {
-            resolve(makeTypeList(todos));
+            resolve({
+                todos: makeTypeList(todos),
+                getTodosSuccess: true
+            });
         })
         .catch((err) => {
             reject({
