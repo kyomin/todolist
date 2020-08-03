@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 function LandingPage(props) {
     const [todos, setTodos] = useState({});
+    const [flag, setFlag] = useState(0);
 
     useEffect(() => {
         axios.get('/api/todo')
@@ -16,6 +17,10 @@ function LandingPage(props) {
             }
         })
     }, []);
+
+    const refreshFlag = (newFlag) => {
+        setFlag(newFlag);
+    }
 
     // 리덕스 스토어에서 user 데이터를 가져올 때까지 기다려준다.
     if(todos) {

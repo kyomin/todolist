@@ -23,8 +23,6 @@ function LoginPage(props) {
     const onSubmitHandler = (e) => {
         e.preventDefault();
 
-        console.log('form submit 이벤트에 진입!')
-
         let requestBody = {
             email,
             password
@@ -32,7 +30,6 @@ function LoginPage(props) {
 
         dispatch(loginUser(requestBody))
         .then(res => {
-            console.log('login response : ', res);
             if(res.payload.loginSuccess) {
                 props.history.push('/');       // 로그인이 성공하면 todo list 랜딩 페이지로 이동한다.
             } else {
