@@ -125,7 +125,7 @@ const findOneByToken = (token) => {
             resolve(user.dataValues);
         })
         .catch(() => {
-            reject("DB에 문제가 생겼습니다!");
+            reject("로그인 하십시오!");
         });
     });
 }

@@ -1,4 +1,5 @@
 const userService = require('../services/user');
+const { maxCookieAge } = require('../utils/constants');
 
 //=======================================
 //             User Controller
@@ -25,7 +26,11 @@ const loginUser = (req, res) => {
     userService.confirmPassword(req.body.email, req.body.password)
     .then((success) => {
         // 3. 로그인 과정을 마쳤다면 최종적으로 토큰을 이용해 쿠키를 생성한다.
-        res.cookie("x_auth", success.token)
+        // 클라이언트 쿠키에서 가져오지 말고, 로컬 스토리지 이용하기!
+        res.cookie("x_auth", success.token, {
+            maxAge: maxCookieAge,
+            httpOnly: true
+        })
         .status(200)
         .json({
             loginSuccess: true,
@@ -41,12 +46,18 @@ const authUser = (req, res) => {
     /*
         이 곳으로 진입했다면 auth 미들웨어를 통과해 왔다는 얘기이다.
         즉, 토큰을 이용한 인증처리가 완료된 것이다.
+        사용자가 로그인 상태를 유지하며 활동하므로 토큰 만료시간을 갱신해 준다.
     */
-   res.status(200).json({
-       isAuth: true, 
-       id: req.user.id,
-       email: req.user.email,
-       name: req.user.name
+    res.cookie("x_auth", req.token, {
+    maxAge: maxCookieAge,
+    httpOnly: true
+    })
+    .status(200)
+    .json({
+        isAuth: true, 
+        id: req.user.id,
+        email: req.user.email,
+        name: req.user.name
     });
 }
 

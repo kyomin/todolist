@@ -20,10 +20,6 @@ app.use(cookieParser());
 
 
 /* 라우팅 설정 */
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
 app.use('/api/user', require('./routes/user'));
 app.use('/api/todo', require('./routes/todo'));
 
