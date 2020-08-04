@@ -18,6 +18,7 @@ function LandingPage(props) {
             // 데이터를 잘 가져온 경우!
             if(res.data.getTodosSuccess) {
                 setTodos(res.data.todos);
+                console.log(res.data.todos);
             } else {    // 그 외에는 인증이 실패했거나 DB error로 인해 가져오지 못 한 경우이다.
                 alert(res.data.message);
             }

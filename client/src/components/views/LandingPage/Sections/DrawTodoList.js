@@ -24,20 +24,18 @@ function DrawTodoList(props) {
     }, [props.todoList, props.title]);
 
     const drawTodoList = () => {
+        console.log(todoList);
         return todoList.map((todo, idx) => {
             return (
                 <div 
                     key={idx} 
                     style={{
-                        marginBottom: '20px', fontSize: '18px', cursor: 'pointer',
+                        marginBottom: '30px', fontSize: '18px', cursor: 'pointer',
                         borderBottom: '1px solid gray'
                     }}
                 >
-                    <h4>
-                        {idx+1}. {todo.title}
-                    </h4>
                     <div>
-                        {todo.description}
+                        <span style={{color: 'red', fontWeight: '300', marginRight: '10px'}}>{idx+1}. </span>{todo.description}
                     </div>
                 </div>
             );

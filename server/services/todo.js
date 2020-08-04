@@ -40,37 +40,18 @@ const makeTypeList = (totalList) => {
     let typeList = [];
     let len = totalList.length;
 
-    // 불러온 todo 리스트의 길이가 0일 경우의 예외처리 !!
-    if(!len) {
-        for(let idx=0; idx<=maxFlag; idx++) {
-            resultMap[idx] = [];
-        }
-
-        return resultMap;
+    // 일단 빈 배열로 모든 flag에 매핑 시킨다.
+    for(let idx=0; idx<=maxFlag; idx++) {
+        resultMap[idx] = [];
     }
 
-    // 첫 번째 타입의 첫 원소에 대해 처리한다. 
-    let currentType = totalList[0].flag;
-    typeList.push(totalList[0]);
+    // 일치하는 flag에 데이터를 추가하는 작업이다.
+    for(let idx = 0; idx < len; idx++) {
+        let curFlag = totalList[idx].flag;
+        let curData = totalList[idx]
 
-    for(let idx = 1; idx < len; idx++) {
-        // 이전 타입과 같다면
-        if(totalList[idx].flag === currentType) {
-            typeList.push(totalList[idx]);
-        } else {    // 이전 타입과 다르다면, 즉 새로운 타입이 시작된다면
-            resultMap[currentType] = typeList;
-
-            // 새로운 타입을 담기 위해 컨테이너 초기화 후 원소 담기
-            typeList = [];
-            typeList.push(totalList[idx]);
-
-            // 타입 바꿔주기
-            currentType = totalList[idx].flag;
-        }
+        resultMap[curFlag].push(curData);
     }
-
-    // 마지막 타입에 대한 처리
-    resultMap[currentType] = typeList;
 
     return resultMap;
 }
