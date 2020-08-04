@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import { useSelector } from "react-redux";
+
+import DrawTodoList from './Sections/DrawTodoList';
+import constants from '../../../utils/constants';
+
+const todoTitles = constants.todoTitles;
 
 function LandingPage(props) {
-    const [todos, setTodos] = useState({});
-    const [flag, setFlag] = useState(0);
-
+    const todo = useSelector(state => state.todo);
+    const [todos, setTodos] = useState(false);
+     
     useEffect(() => {
         axios.get('/api/todo')
         .then(res => {
@@ -18,23 +24,37 @@ function LandingPage(props) {
         })
     }, []);
 
-    const refreshFlag = (newFlag) => {
-        setFlag(newFlag);
-    }
-
-    // 리덕스 스토어에서 user 데이터를 가져올 때까지 기다려준다.
-    if(todos) {
+    const _loading = () => {
         return (
             <div style={{
                 display: 'flex', justifyContent: 'center', alignItems: 'center',
                 width: '100%', height: '100vh'
             }}>
-                
+                ...loading
             </div>
         );
+    }
+    
+    if(todos) {
+        if(todo) {
+            return (
+                <DrawTodoList
+                    todoList={todos[todo.changedFlag]}
+                    title={todoTitles[todo.changedFlag]}
+                />
+            );
+        } else {
+            return (
+                <Fragment>
+                    {_loading()}
+                </Fragment>
+            );
+        }
     } else {
         return (
-            <div>...loading</div>
+            <Fragment>
+                {_loading()}
+            </Fragment>
         );
     }
 }

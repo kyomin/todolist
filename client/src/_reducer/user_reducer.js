@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, REGISTER_USER, AUTH_USER } from '../_actions/types';
+import { LOGIN_USER, REGISTER_USER, AUTH_USER } from '../_actions/types';
 
 // {이전 상태, action}
 export default function (state={}, action) {
