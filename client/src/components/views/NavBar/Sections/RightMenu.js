@@ -17,6 +17,10 @@ function RightMenu(props) {
         dispatch(changeFlag(todoTypes.TODO));   // 디폴트 탭 상태는 TODO이다.
     }, []);
 
+    const onTodoStateHandler = (e) => {
+        dispatch(changeFlag(e.currentTarget.getAttribute('value')));
+    }
+
     const onLogoutHandler = () => {
         axios.get('/api/user/logout')
         .then(res => {
@@ -27,10 +31,6 @@ function RightMenu(props) {
                 alert('로그아웃에 실패했습니다.');
             }
         });
-    }
-
-    const onTodoStateHandler = (e) => {
-        dispatch(changeFlag(e.currentTarget.getAttribute('value')));
     }
 
     // 로그인 한 사람들
@@ -45,6 +45,9 @@ function RightMenu(props) {
                 </Menu.Item>
                 <Menu.Item key="done">
                     <a value={todoTypes.DONE} onClick={onTodoStateHandler}>done</a>
+                </Menu.Item>
+                <Menu.Item key="update">
+                    <a href='/update'>update</a>
                 </Menu.Item>
                 <Menu.Item key="logout">
                     <a onClick={onLogoutHandler}>logout</a>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment} from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { Typography } from 'antd';
@@ -52,8 +52,7 @@ function DrawTodoList() {
     if(todoLists && flag) {
         return (
             <div style={{
-                    width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
-                    alignContent: 'center'
+                    width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignContent: 'center', marginTop: '5%'
                 }}
             >
                 <div style={{

@@ -52,7 +52,7 @@ function RegisterPage(props) {
             } else {
                 alert(res.payload.message);
             }
-        })
+        });
     }
 
     return (

@@ -50,10 +50,10 @@ function AddTodo(props) {
         setTodoDescription("");
     }
 
-    // 리덕스 스토어에서 필요 데이터들 꺼내오기를 기다린다.
+    // 리덕스 스토어에서 렌0더링에 필요한 데이터들을 꺼내오기 기다린다.
     if(user.userData && user.userData.isAuth && todo) {
         return (
-            <div>
+            <div style={{marginBottom: '15%'}}>
                 <form style={{ display: 'flex' }} onSubmit={handleSubmit}>
                     <textarea
                         style={{ width: '100%', borderRadius: '5px' }}

@@ -2,7 +2,7 @@ import React from 'react';
 import RightMenu from './Sections/RightMenu';
 import './Sections/NavBar.css'
 
-function NavBar() {
+function NavBar(props) {
     return (
     <nav className="menu" style={{ zIndex: 5, width: '100%' }}>
       <div className="menu__logo">
