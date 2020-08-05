@@ -7,7 +7,7 @@ const maxFlag = 2;
 
 const getTodos = (userId) => {
     return new Promise((resolve, reject) => {
-        Todo.findAll({ where: {userId: userId}, order: [ ['flag', 'ASC'] ] })
+        Todo.findAll({ where: {userId: userId}, order: [ ['createdAt', 'ASC'] ] })
         .then((todos) => {
             resolve({
                 todos: makeTypeList(todos),

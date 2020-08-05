@@ -1,3 +1,4 @@
+/* For Todo Model */
 const todoTypes = {
     TODO: 0, 
     DOING: 1,

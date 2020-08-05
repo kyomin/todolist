@@ -1,31 +1,43 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, Fragment} from 'react'
+import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { Typography } from 'antd';
+import { useSelector } from "react-redux";
+
+import constants from '../../../../utils/constants';
 
 const { Title } = Typography;
+const todoTitles = constants.todoTitles;
 
-function DrawTodoList(props) {
-    const [prevTodoList, setPrevTodoList] = useState([]);
-    const [todoList, setTodoList] = useState([]);
-    const [title, setTitle] = useState("");
+function DrawTodoList() {
+    const todo = useSelector(state => state.todo);
+    const [todos, setTodos] = useState(false);
     
     useEffect(() => {
-        setTodoList(props.todoList);
-        setPrevTodoList(props.todoList);
-        setTitle(props.title);
+        axios.get('/api/todo')
+        .then(res => {
+            // 데이터를 잘 가져온 경우!
+            if(res.data.getTodosSuccess) {
+                setTodos(res.data.todos);
+            } else {    // 그 외에는 인증이 실패했거나 DB error로 인해 가져오지 못 한 경우이다.
+                alert(res.data.message);
+            }
+        });
     }, []);
 
-    useEffect(() => {
-        if(props.todoList !== prevTodoList) {
-            setTodoList(props.todoList);
-            setPrevTodoList(props.todoList);
-            setTitle(props.title);
-        }
-    }, [props.todoList, props.title]);
+    const _loading = () => {
+        return (
+            <div style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center',
+                width: '100%', height: '100vh'
+            }}>
+                ...loading
+            </div>
+        );
+    }
 
     const drawTodoList = () => {
-        console.log(todoList);
-        return todoList.map((todo, idx) => {
+        return todos[todo.changedFlag].map((todo, idx) => {
             return (
                 <div 
                     key={idx} 
@@ -42,20 +54,28 @@ function DrawTodoList(props) {
         });
     }
     
-    return (
-        <div style={{
-                width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
-                alignContent: 'center'
-            }}
-        >
+    if(todos && todo) {
+        return (
             <div style={{
-            width: '40%'
-            }}>
-                <Title level={1} style={{color: '#40a9ff'}}>{title} List</Title>
-                {drawTodoList()}
-            </div> 
-        </div>
-    );
+                    width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
+                    alignContent: 'center'
+                }}
+            >
+                <div style={{
+                width: '40%'
+                }}>
+                    <Title level={1} style={{color: '#40a9ff'}}>{todoTitles[todo.changedFlag]} List</Title>
+                    {drawTodoList()}
+                </div> 
+            </div>
+        );
+    } else {
+        return (
+            <Fragment>
+                {_loading()}
+            </Fragment>
+        )
+    }
 }
 
 export default withRouter(DrawTodoList);

@@ -14,7 +14,7 @@ function RightMenu(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(changeFlag(todoTypes.TODO));
+        dispatch(changeFlag(todoTypes.TODO));   // 디폴트 탭 상태는 TODO이다.
     }, []);
 
     const onLogoutHandler = () => {
