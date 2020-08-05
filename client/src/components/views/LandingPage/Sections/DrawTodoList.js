@@ -3,26 +3,21 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { Typography } from 'antd';
 import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
+import { getTodos } from '../../../../_actions/todo_action';
 
-import constants from '../../../../utils/constants';
+import AddTodo from './AddTodo';
 
 const { Title } = Typography;
-const todoTitles = constants.todoTitles;
+const todoTitles = ["할 일", "진행 중인 일", "완료된 일"];
 
 function DrawTodoList() {
-    const todo = useSelector(state => state.todo);
-    const [todos, setTodos] = useState(false);
-    
+    const dispatch = useDispatch();
+    const flag = useSelector(state => state.todo.currentFlag) || '0';   // 탭을 클릭하지 않으면 리덕스 스토어에 저장되지 않으므로 디폴트로 0(할 일)
+    const todoLists = useSelector(state => state.todo.todoLists);
+
     useEffect(() => {
-        axios.get('/api/todo')
-        .then(res => {
-            // 데이터를 잘 가져온 경우!
-            if(res.data.getTodosSuccess) {
-                setTodos(res.data.todos);
-            } else {    // 그 외에는 인증이 실패했거나 DB error로 인해 가져오지 못 한 경우이다.
-                alert(res.data.message);
-            }
-        });
+        dispatch(getTodos());
     }, []);
 
     const _loading = () => {
@@ -37,7 +32,7 @@ function DrawTodoList() {
     }
 
     const drawTodoList = () => {
-        return todos[todo.changedFlag].map((todo, idx) => {
+        return todoLists[flag].map((todo, idx) => {
             return (
                 <div 
                     key={idx} 
@@ -54,7 +49,7 @@ function DrawTodoList() {
         });
     }
     
-    if(todos && todo) {
+    if(todoLists && flag) {
         return (
             <div style={{
                     width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
@@ -64,8 +59,9 @@ function DrawTodoList() {
                 <div style={{
                 width: '40%'
                 }}>
-                    <Title level={1} style={{color: '#40a9ff'}}>{todoTitles[todo.changedFlag]} List</Title>
+                    <Title level={1} style={{color: '#40a9ff'}}>{todoTitles[flag]} 목록</Title>
                     {drawTodoList()}
+                    <AddTodo />
                 </div> 
             </div>
         );
@@ -74,7 +70,7 @@ function DrawTodoList() {
             <Fragment>
                 {_loading()}
             </Fragment>
-        )
+        );
     }
 }
 

@@ -5,3 +5,5 @@ export const AUTH_USER = "auth_user";
 
 /* For Todo Model */
 export const CHANGE_FLAG = "change_flag";
+export const GET_TODOS = "get_todos";
+export const CREATE_TODO = "create_todo";
