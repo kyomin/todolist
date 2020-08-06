@@ -1,4 +1,4 @@
-import { CHANGE_FLAG, GET_TODOS, CREATE_TODO } from '../_actions/types';
+import { CHANGE_FLAG, GET_TODOS, CREATE_TODO, DELETE_TODO } from '../_actions/types';
 
 export default function (state={}, action) {
     switch(action.type) {
@@ -12,6 +12,10 @@ export default function (state={}, action) {
 
         case CREATE_TODO:
             return { ...state, createSuccess: action.payload }
+            break;
+
+        case DELETE_TODO:
+            return { ...state, deleteSuccess: action.payload }
             break;
 
         default:

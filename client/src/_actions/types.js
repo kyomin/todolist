@@ -9,3 +9,4 @@ export const UPDATE_USER = "update_user";
 export const CHANGE_FLAG = "change_flag";
 export const GET_TODOS = "get_todos";
 export const CREATE_TODO = "create_todo";
+export const DELETE_TODO = "delete_todo";

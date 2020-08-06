@@ -45,7 +45,7 @@ function AddTodo() {
         });
 
         /* 2. 업데이트 된 리스트를 새로 불러온다. */
-        dispatch(getTodos());
+        await dispatch(getTodos());
 
         setTodoDescription("");
     }
