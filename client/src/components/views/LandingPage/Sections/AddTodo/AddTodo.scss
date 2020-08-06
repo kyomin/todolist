@@ -1,0 +1,12 @@
+.add_todo_wrap {
+    margin-bottom: 15%;
+
+    .add_form {
+        display: flex;
+
+        .description {
+            width: 100%;
+            border-radius: 5px;
+        }
+    }
+}

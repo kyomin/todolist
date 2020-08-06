@@ -8,6 +8,7 @@ import LandingPage from './components/views/LandingPage/LandingPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import UpdatePage from './components/views/UpdatePage/UpdatePage';
+import ErrorPage from './components/views/ErrorPage/ErrorPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/update" component={Auth(UpdatePage, true)} />
+          <Route component={ErrorPage} />
         </Switch>
       </div>
     </Router>

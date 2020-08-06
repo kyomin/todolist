@@ -1,26 +1,12 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import axios from 'axios';
 import { Menu } from 'antd';
-import { useSelector } from "react-redux";
 import { withRouter } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { changeFlag } from '../../../../_actions/todo_action';
-import constants from '../../../../utils/constants';
-
-const todoTypes = constants.todoTypes;
+import { useSelector } from "react-redux";
 
 function RightMenu(props) {
     const user = useSelector(state => state.user);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(changeFlag(todoTypes.TODO));   // 디폴트 탭 상태는 TODO이다.
-    }, []);
-
-    const onTodoStateHandler = (e) => {
-        dispatch(changeFlag(e.currentTarget.getAttribute('value')));
-    }
-
+    
     const onLogoutHandler = () => {
         axios.get('/api/user/logout')
         .then(res => {
@@ -37,20 +23,11 @@ function RightMenu(props) {
     if(user.userData && user.userData.isAuth) {
         return (
             <Menu mode={props.mode}>
-                <Menu.Item key="todo">
-                    <a value={todoTypes.TODO} onClick={onTodoStateHandler}>todo</a>
-                </Menu.Item>
-                <Menu.Item key="doing">
-                    <a value={todoTypes.DOING} onClick={onTodoStateHandler}>doing</a>
-                </Menu.Item>
-                <Menu.Item key="done">
-                    <a value={todoTypes.DONE} onClick={onTodoStateHandler}>done</a>
-                </Menu.Item>
                 <Menu.Item key="update">
-                    <a href='/update'>update</a>
+                    <a href='/update'>비밀번호 변경</a>
                 </Menu.Item>
                 <Menu.Item key="logout">
-                    <a onClick={onLogoutHandler}>logout</a>
+                    <a onClick={onLogoutHandler}>로그아웃</a>
                 </Menu.Item>
             </Menu>
         )

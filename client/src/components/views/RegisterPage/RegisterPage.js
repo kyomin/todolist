@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_action';
 import { Form, Input, Typography, Button } from 'antd';
 
+import './RegisterPage.scss';
+
 const { Title } = Typography;
 
 function RegisterPage(props) {
@@ -56,22 +58,10 @@ function RegisterPage(props) {
     }
 
     return (
-        <div 
-            style={{
-                width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
-                alignContent: 'center'
-            }}
-        >
-            <div style={{
-                width: '20%'
-            }}>
+        <div className='register_page_wrap'>
+            <div className='register_container'>
                 <Title level={2} style={{color: '#40a9ff'}}>Register</Title>
-                <form 
-                    style={{
-                        display: 'flex', flexDirection: 'column', marginBottom: '1%'
-                    }}
-                    onSubmit={onSubmitHandler}
-                >
+                <form className='register_form' onSubmit={onSubmitHandler}>
                     <Form.Item>
                         <label>Email</label>
                         <Input
@@ -127,9 +117,7 @@ function RegisterPage(props) {
                 </form>
                 
                 <a style={{textDecoration: 'none'}} href = '/login'>
-                    <Button style={{
-                        display: 'block', width: '100%', textAlign: 'center'
-                    }}>
+                    <Button className='cancel_btn'>
                         취소
                     </Button>
                 </a>

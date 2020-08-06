@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { updateUser } from '../../../_actions/user_action';
 import { Form, Input, Typography, Button } from 'antd';
 
+import './UpdatePage.scss';
+
 const { Title } = Typography;
 
 function UpdatePage(props) {
@@ -44,22 +46,10 @@ function UpdatePage(props) {
     }
 
     return (
-        <div 
-            style={{
-                width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
-                alignContent: 'center'
-            }}
-        >
-            <div style={{
-                width: '20%'
-            }}>
+        <div className='update_page_wrap'>
+            <div className='update_container'>
                 <Title level={2} style={{color: '#40a9ff'}}>비밀번호 변경</Title>
-                <form 
-                    style={{
-                        display: 'flex', flexDirection: 'column', marginBottom: '1%'
-                    }}
-                    onSubmit={onSubmitHandler}
-                >
+                <form className='update_form' onSubmit={onSubmitHandler}>
                     <Form.Item>
                         <label>새 비밀번호</label>
                         <Input
@@ -91,9 +81,7 @@ function UpdatePage(props) {
                 </form>
                 
                 <a style={{textDecoration: 'none'}} href = '/'>
-                    <Button style={{
-                        display: 'block', width: '100%', textAlign: 'center'
-                    }}>
+                    <Button className='cancel_btn'>
                         취소
                     </Button>
                 </a>

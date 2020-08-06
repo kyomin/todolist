@@ -1,15 +1,12 @@
-import React, { useEffect, useState, Fragment } from 'react'
-import axios from 'axios';
+import React, { useEffect, Fragment } from 'react'
 import { withRouter } from 'react-router-dom';
-import { Typography } from 'antd';
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
-import { getTodos } from '../../../../_actions/todo_action';
+import { getTodos } from '../../../../../_actions/todo_action';
 
-import AddTodo from './AddTodo';
-
-const { Title } = Typography;
-const todoTitles = ["할 일", "진행 중인 일", "완료된 일"];
+import './DrawTodoList.scss';
+import TodoTab from '../TodoTab/TodoTab';
+import AddTodo from '../AddTodo/AddTodo';
 
 function DrawTodoList() {
     const dispatch = useDispatch();
@@ -34,15 +31,9 @@ function DrawTodoList() {
     const drawTodoList = () => {
         return todoLists[flag].map((todo, idx) => {
             return (
-                <div 
-                    key={idx} 
-                    style={{
-                        marginBottom: '30px', fontSize: '18px', cursor: 'pointer',
-                        borderBottom: '1px solid gray'
-                    }}
-                >
+                <div key={idx} className='todo_wrap'>
                     <div>
-                        <span style={{color: 'red', fontWeight: '300', marginRight: '10px'}}>{idx+1}. </span>{todo.description}
+                        <span className='todo_index'>{idx+1}. </span>{todo.description}
                     </div>
                 </div>
             );
@@ -51,14 +42,9 @@ function DrawTodoList() {
     
     if(todoLists && flag) {
         return (
-            <div style={{
-                    width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignContent: 'center', marginTop: '5%'
-                }}
-            >
-                <div style={{
-                width: '40%'
-                }}>
-                    <Title level={1} style={{color: '#40a9ff'}}>{todoTitles[flag]} 목록</Title>
+            <div className='todo_list_wrap'>
+                <div className='container'>
+                    <TodoTab />
                     {drawTodoList()}
                     <AddTodo />
                 </div> 

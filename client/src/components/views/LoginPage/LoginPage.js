@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { Form, Input, Typography, Button } from 'antd';
 
+import './LoginPage.scss';
+
 const { Title } = Typography;
 
 function LoginPage(props) {
@@ -39,22 +41,10 @@ function LoginPage(props) {
     }
 
     return (
-        <div 
-            style={{
-                width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',
-                alignContent: 'center'
-            }}
-        >
-            <div style={{
-                width: '20%'
-            }}>
+        <div className='login_page_wrap'>
+            <div className='login_container'>
                 <Title level={2} style={{color: '#40a9ff'}}>Log In</Title>
-                <form 
-                    style={{
-                        display: 'flex', flexDirection: 'column', marginBottom: '1%'
-                    }}
-                    onSubmit={onSubmitHandler}
-                >
+                <form className='login_form' onSubmit={onSubmitHandler}>
                     <Form.Item>
                         <label>Email</label>
                         <Input
@@ -86,9 +76,7 @@ function LoginPage(props) {
                 </form>
                 
                 <a style={{textDecoration: 'none'}} href = '/register'>
-                    <Button style={{
-                        display: 'block', width: '100%', textAlign: 'center'
-                    }}>
+                    <Button className='register_btn'>
                         회원가입
                     </Button>
                 </a>

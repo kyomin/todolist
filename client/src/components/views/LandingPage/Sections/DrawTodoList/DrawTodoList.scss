@@ -1,0 +1,25 @@
+.todo_list_wrap {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 5%;
+
+    .container {
+        width: 40%;
+
+        .todo_wrap {
+            margin-bottom: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-bottom: 1px solid gray;
+
+            .todo_index {
+                color: red;
+                font-weight: 300;
+                margin-right: 10px;
+            }
+        }
+    }
+}

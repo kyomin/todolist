@@ -1,10 +1,10 @@
-import React, {useEffect, useState, Fragment} from 'react';
-import axios from 'axios';
+import React, { useState, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
-import { getTodos, createTodo } from '../../../../_actions/todo_action';
+import { getTodos, createTodo } from '../../../../../_actions/todo_action';
 
+import './AddTodo.scss';
 
 const todoPlaceholders = [
     "할 일을 작성해 주세요", 
@@ -12,7 +12,7 @@ const todoPlaceholders = [
     "완료된 일을 작성해 주세요"
 ];
 
-function AddTodo(props) {
+function AddTodo() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
     const todo = useSelector(state => state.todo);
@@ -53,10 +53,10 @@ function AddTodo(props) {
     // 리덕스 스토어에서 렌0더링에 필요한 데이터들을 꺼내오기 기다린다.
     if(user.userData && user.userData.isAuth && todo) {
         return (
-            <div style={{marginBottom: '15%'}}>
-                <form style={{ display: 'flex' }} onSubmit={handleSubmit}>
+            <div className='add_todo_wrap'>
+                <form className='add_form' onSubmit={handleSubmit}>
                     <textarea
-                        style={{ width: '100%', borderRadius: '5px' }}
+                        className='description'
                         onChange={handleChange}
                         value={todoDescription}
                         placeholder={todoPlaceholders[todo.currentFlag]}
