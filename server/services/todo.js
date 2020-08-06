@@ -1,5 +1,6 @@
 const { Todo } = require('../models');
 const maxFlag = 2;
+const minFlag = 0;
 
 //=======================================
 //             Todo Service
@@ -37,7 +38,6 @@ const makeTodo = (req) => {
 
 const makeTypeList = (totalList) => {
     let resultMap = {};
-    let typeList = [];
     let len = totalList.length;
 
     // 일단 빈 배열로 모든 flag에 매핑 시킨다.
@@ -56,9 +56,9 @@ const makeTypeList = (totalList) => {
     return resultMap;
 }
 
-const updateTodo = (id) => {
+const updateTodoFlag = (id, changeFlagValue) => {
     return new Promise((resolve, reject) => {
-        getNextFlag(id)
+        getChangedFlag(id, changeFlagValue)
         .then((nextFlag) => {
             Todo.update({ flag: nextFlag }, { where: {id: id} })
             .then(() => {
@@ -67,17 +67,17 @@ const updateTodo = (id) => {
             .catch(() => {
                 reject({
                     updateSuccess: false,
-                    message: "비밀번호 업데이트에 실패했습니다."
+                    message: "todo 상태 업데이트에 실패했습니다."
                 });
             });
         })
         .catch((err) => {
             reject(err);
-        })
+        });
     });
 }
 
-const getNextFlag = (id) => {
+const getChangedFlag = (id, changeFlagValue) => {
     return new Promise((resolve, reject) => {
         Todo.findOne({ where: {id: id} })
         .then((todo) => {
@@ -89,13 +89,13 @@ const getNextFlag = (id) => {
             }
 
             // 다음 단계로 넘어갈 수 없는 경우의 예외처리 => 최대 flag 값을 변수로 관리할 수 있는 방법 생각해보기
-            if(todo.dataValues.flag === maxFlag) {
+            if(todo.dataValues.flag+changeFlagValue > maxFlag || todo.dataValues.flag+changeFlagValue < minFlag) {
                 reject({
                     updateSuccess: false,
                     message: "다음 단계로 넘어갈 수 없습니다."
                 });
             } else {
-                resolve(todo.dataValues.flag+1);
+                resolve(todo.dataValues.flag+changeFlagValue);
             }
         })
         .catch((err) => {
@@ -104,6 +104,24 @@ const getNextFlag = (id) => {
                 message: err
             });
         });
+    });
+}
+
+const updateTodoDescription = (id, newDescription) => {
+    return new Promise((resolve, reject) => {
+        console.log('newDescription : ', newDescription);
+        console.log('id : ', id);
+        Todo.update({ description: newDescription }, { where: {id: id} })
+        .then(() => {
+            resolve({ updateSuccess: true });
+        })
+        .catch((err) => {
+            console.log('todo 업데이트 에러 : ', err);
+            reject({
+                updateSuccess: false,
+                message: "todo 업데이트에 실패했습니다."
+            });
+        }); 
     });
 }
 
@@ -122,6 +140,7 @@ const deleteTodo = (id) => {
 module.exports = {
     getTodos,
     makeTodo,
-    updateTodo,
+    updateTodoFlag,
+    updateTodoDescription,
     deleteTodo
 };

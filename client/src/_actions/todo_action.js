@@ -1,10 +1,17 @@
 import axios from 'axios';
-import { CHANGE_FLAG, GET_TODOS, CREATE_TODO, DELETE_TODO } from './types';
+import { CHANGE_FLAG, CHANGE_INDEX_Of_CLICKED_UPDATE_BUTTON, GET_TODOS, CREATE_TODO, UPDATE_TODO, DELETE_TODO } from './types';
 
 export function changeFlag(flag) {
     return {
         type: CHANGE_FLAG,
         payload: flag
+    };
+}
+
+export function changeIndexOfClickedUpdateBtn(idx) {
+    return {
+        type: CHANGE_INDEX_Of_CLICKED_UPDATE_BUTTON,
+        payload: idx
     };
 }
 
@@ -24,6 +31,16 @@ export function createTodo(dataToSubmit) {
 
     return {
         type: CREATE_TODO,
+        payload: request
+    };
+}
+
+export function updateTodo(id, dataToSubmit) {
+    const request = axios.put(`/api/todo/${id}`, dataToSubmit)
+    .then(res => res.data);
+
+    return {
+        type: UPDATE_TODO,
         payload: request
     };
 }

@@ -1,0 +1,26 @@
+.update_todo_wrap {
+    width: 100%;
+
+    .update_form {
+        display: flex;
+        height: 70%;
+
+        .description {
+            width: 100%;
+            border-radius: 5px;
+            line-height: unset;
+        }
+
+        .update_btn {
+            width: 20%;
+            height: auto;
+            background: #40a9ff;
+            color: white;
+        }
+
+        .cancel_btn {
+            width: 20%;
+            height: auto;
+        }
+    }
+}

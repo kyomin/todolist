@@ -50,7 +50,7 @@ function AddTodo() {
         setTodoDescription("");
     }
 
-    // 리덕스 스토어에서 렌0더링에 필요한 데이터들을 꺼내오기 기다린다.
+    // 리덕스 스토어에서 렌더링에 필요한 데이터들을 꺼내오기 기다린다.
     if(user.userData && user.userData.isAuth && todo) {
         return (
             <div className='add_todo_wrap'>
@@ -62,7 +62,7 @@ function AddTodo() {
                         placeholder={todoPlaceholders[todo.currentFlag]}
                     />
                     <br />
-                    <button style={{ width: '20%', height: '52px' }} onClick={handleSubmit}>등록</button>
+                    <button className='add_btn' onClick={handleSubmit}>등록</button>
                 </form>
             </div>
         );

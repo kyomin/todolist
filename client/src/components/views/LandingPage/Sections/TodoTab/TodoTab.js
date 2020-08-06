@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Menu } from 'antd';
-import { useSelector } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { changeFlag } from '../../../../../_actions/todo_action';
@@ -10,7 +9,7 @@ import './TodoTab.scss';
 
 const todoTypes = constants.todoTypes;
 
-function TodoTab(props) {
+function TodoTab() {
     const dispatch = useDispatch();
 
     useEffect(() => {

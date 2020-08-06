@@ -25,13 +25,25 @@ const makeTodo = (req, res) => {
 }
 
 const updateTodo = (req, res) => {
-    todoService.updateTodo(req.params.id)
-    .then((result) => {
-        res.status(200).json(result);
-    })
-    .catch((fail) => {
-        res.json(fail);
-    });
+    console.log('update todo body : ', req.body);
+    console.log('update todo params : ', req.params);
+    if(!req.body.description) {             // body에 description이 담겨오지 않으면 flag만 업데이트 하는 것이다.
+        todoService.updateTodoFlag(req.params.id, req.body.changeFlagValue)
+        .then((result) => {
+            res.status(200).json(result);
+        })
+        .catch((fail) => {
+            res.json(fail);
+        });
+    } else {
+        todoService.updateTodoDescription(req.params.id, req.body.description)
+        .then((result) => {
+            res.status(200).json(result);
+        })
+        .catch((fail) => {
+            res.json(fail);
+        });
+    }
 }
 
 const deleteTodo = (req, res) => {

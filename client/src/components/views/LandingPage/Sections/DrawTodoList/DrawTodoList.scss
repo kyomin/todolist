@@ -26,6 +26,18 @@
             .btn_container {
                 display: flex;
 
+                .hidden {
+                    display: none;
+                }
+
+                .prev_btn {
+                    margin-right: 2%;
+                }
+
+                .next_btn {
+                    margin-right: 2%;
+                }
+
                 .update_btn {
                     background: #40a9ff;
                     margin-right: 2%;
