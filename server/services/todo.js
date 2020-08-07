@@ -1,6 +1,5 @@
 const { Todo } = require('../models');
-const maxFlag = 2;
-const minFlag = 0;
+const { maxFlag, minFlag } = require('../utils/constants');
 
 //=======================================
 //             Todo Service
@@ -109,14 +108,11 @@ const getChangedFlag = (id, changeFlagValue) => {
 
 const updateTodoDescription = (id, newDescription) => {
     return new Promise((resolve, reject) => {
-        console.log('newDescription : ', newDescription);
-        console.log('id : ', id);
         Todo.update({ description: newDescription }, { where: {id: id} })
         .then(() => {
             resolve({ updateSuccess: true });
         })
         .catch((err) => {
-            console.log('todo 업데이트 에러 : ', err);
             reject({
                 updateSuccess: false,
                 message: "todo 업데이트에 실패했습니다."

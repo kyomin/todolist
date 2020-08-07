@@ -4,8 +4,8 @@ import { auth } from '../_actions/user_action';
 
 /*
     매개변수 adminRoute의 기본값을 null로 정의. 인자로 안 넘겨주면 디폴트로 null을 갖는다.
-    option == null  => 아무나 출입이 가능한 페이지 (LoginPage 등등)
-    option == ture  => 로그인한 유저만 출입이 가능한 페이지 (LandingPage 등등)
+    option == null  => 아무나 출입이 가능한 페이지
+    option == ture  => 로그인한 유저만 출입이 가능한 페이지 (LandingPage, UpdatePage 등등)
     option == false => 로그인한 유저는 출입이 불가능한 페이지 (RegisterPage, LoginPage 등등)
 */
 export default function(SpecificComponent, option, adminRoute = null) {

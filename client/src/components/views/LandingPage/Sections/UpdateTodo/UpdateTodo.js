@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
-import { changeIndexOfClickedUpdateBtn, getTodos, createTodo, updateTodo } from '../../../../../_actions/todo_action';
+import { changeIndexOfClickedUpdateBtn, getTodos, updateTodo } from '../../../../../_actions/todo_action';
 import { Button } from 'antd';
 
 import './UpdateTodo.scss';

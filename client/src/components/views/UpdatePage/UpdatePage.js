@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../../_actions/user_action';
@@ -22,6 +23,18 @@ function UpdatePage(props) {
         setConfirmNewPassword(e.currentTarget.value);
     }
 
+    const onLogoutHandler = () => {
+        axios.get('/api/user/logout')
+        .then(res => {
+            if(res.data.logoutSuccess) {
+                alert('비밀번호 변경을 마쳤습니다. \n 새 비밀번호로 다시 로그인 하십시오.');
+                props.history.push('/login');
+            } else {
+                alert('로그아웃에 실패했습니다.');
+            }
+        });
+    }
+
     const onSubmitHandler = (e) => {
         e.preventDefault();
 
@@ -37,8 +50,7 @@ function UpdatePage(props) {
         dispatch(updateUser(requestBody))
         .then(res => {
             if(res.payload.updateSuccess) {
-                alert('비밀번호 변경을 성공적으로 마쳤습니다');
-                props.history.push('/');
+                onLogoutHandler();
             } else {
                 alert(res.payload.message);
             }

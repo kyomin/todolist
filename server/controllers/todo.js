@@ -25,8 +25,6 @@ const makeTodo = (req, res) => {
 }
 
 const updateTodo = (req, res) => {
-    console.log('update todo body : ', req.body);
-    console.log('update todo params : ', req.params);
     if(!req.body.description) {             // body에 description이 담겨오지 않으면 flag만 업데이트 하는 것이다.
         todoService.updateTodoFlag(req.params.id, req.body.changeFlagValue)
         .then((result) => {
